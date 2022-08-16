@@ -44,9 +44,9 @@
                   <br>
                   <div class="text-center text-danger">
                     <b>
-                    DRIVER : bayurifki916@gmail.com
+                    DRIVER : driver@test.com
                     <br>
-                    PEMESAN : bayurifkialgh@gmail.com
+                    PEMESAN : pemesan@test.com
                     <br>
                     Password : 123456
                     <br>

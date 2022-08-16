@@ -52,8 +52,8 @@ class Register extends CI_Controller {
 	            'protocol'  => 'smtp',
 	            'smtp_host' => 'ssl://smtp.gmail.com',
 	            'smtp_port' => 465,
-	            'smtp_user' => 'gwp01070@gmail.com',
-	            'smtp_pass' => '@Cimahi123',
+	            'smtp_user' => 'pamungkasray229@gmail.com',
+	            'smtp_pass' => 'ultdthectfwefzcp',
 	            'wordwrap' 	=> TRUE
 
 	        );

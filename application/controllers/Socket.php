@@ -3,9 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Socket extends CI_Controller {
 
-
-	public function pesan()
-	{
+	public function innitPusher() {
 		/**
 		 * APP_KEY Pusher liblary
 		 * 
@@ -34,7 +32,12 @@ class Socket extends CI_Controller {
 			$options
 		);
 
+		return $pusher;
+	}
 
+	public function pesan()
+	{
+		$pusher = innitPusher();
 
 		$customerId 	= $this->input->post('user_id');
 		$status 		= $this->input->post('status');
@@ -61,36 +64,8 @@ class Socket extends CI_Controller {
 
 	public function jalan()
 	{
-		/**
-		 * APP_KEY Pusher liblary
-		 * 
-		 * 
-		 * app_id = "1010754"
-		 * app_id = "1010754"
-		 * app_id = "1010754"
-		 * key = "711b19f530583c9309c4"
-		 * secret = "17e4f3883c8bd2a7afc9"
-		 * cluster = "ap1"
-		 *
-		 *
-		 *
-		 **/
-		require_once APPPATH . 'libraries/pusher/autoload.php';
-
-		$options 						= array(
-			'cluster' 	=> 'ap1',
-			'useTLS' 	=> true
-		);
-
-		$pusher 						= new Pusher\Pusher(
-			'711b19f530583c9309c4',
-			'17e4f3883c8bd2a7afc9',
-			'1010754',
-			$options
-		);
-
-
-
+		$pusher = innitPusher();
+		
 		$customerId 	= $this->input->post('user_id');
 		$status 		= $this->input->post('status');
 		$driver 		= $this->input->post('driv_id');
@@ -108,35 +83,7 @@ class Socket extends CI_Controller {
 
 	public function batalPesanan()
 	{
-		/**
-		 * APP_KEY Pusher liblary
-		 * 
-		 * 
-		 * app_id = "1010754"
-		 * app_id = "1010754"
-		 * app_id = "1010754"
-		 * key = "711b19f530583c9309c4"
-		 * secret = "17e4f3883c8bd2a7afc9"
-		 * cluster = "ap1"
-		 *
-		 *
-		 *
-		 **/
-		require_once APPPATH . 'libraries/pusher/autoload.php';
-
-		$options 						= array(
-			'cluster' 	=> 'ap1',
-			'useTLS' 	=> true
-		);
-
-		$pusher 						= new Pusher\Pusher(
-			'711b19f530583c9309c4',
-			'17e4f3883c8bd2a7afc9',
-			'1010754',
-			$options
-		);
-
-
+		$pusher = innitPusher();
 
 		$id 			= $this->input->post('user_id');
 		$status 		= $this->input->post('status');

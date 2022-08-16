@@ -1,5 +1,7 @@
 <?php $this->load->view('templates/header') ?>
-
+<?php
+$key = 'YOUR KEY';
+?>
 <div class="content clearfix pt-5 mt-5">
 		
 	<div id="colors" class="container mb-5">
@@ -85,7 +87,7 @@
 </style>
 
 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBzpRW_xVhK5Q5AdpzhpKWBhlXkd_5pswk"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=<?= $key ?>"></script>
 <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
 
 
@@ -230,7 +232,7 @@
 
           $.ajax({
             method: 'get',
-            url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&sensor=true&key=AIzaSyBzpRW_xVhK5Q5AdpzhpKWBhlXkd_5pswk',
+            url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&sensor=true&key=<?= $key ?>',
             async: true,
             success(data)
             {
@@ -313,22 +315,6 @@
             $('#detail').css('display', 'block')
     			}
         })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         let pusher  = new Pusher('711b19f530583c9309c4', 
         {
