@@ -1,6 +1,6 @@
 <?php $this->load->view('templates/header') ?>
 <?php
-$key = 'YOUR KEY';
+$key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
 ?>
 <div class="content clearfix pt-5 mt-5">
 		
@@ -316,7 +316,7 @@ $key = 'YOUR KEY';
     			}
         })
 
-        let pusher  = new Pusher('711b19f530583c9309c4', 
+        let pusher  = new Pusher('fb1c5952e0aaa79fdced', 
         {
             cluster: 'ap1'
         })

@@ -8,11 +8,9 @@ class Socket extends CI_Controller {
 		 * APP_KEY Pusher liblary
 		 * 
 		 * 
-		 * app_id = "1010754"
-		 * app_id = "1010754"
-		 * app_id = "1010754"
-		 * key = "711b19f530583c9309c4"
-		 * secret = "17e4f3883c8bd2a7afc9"
+		 * app_id = "1463863"
+		 * key = "fb1c5952e0aaa79fdced"
+		 * secret = "56f728172350e77d5f7d"
 		 * cluster = "ap1"
 		 *
 		 *
@@ -26,9 +24,9 @@ class Socket extends CI_Controller {
 		);
 
 		$pusher 						= new Pusher\Pusher(
-			'711b19f530583c9309c4',
-			'17e4f3883c8bd2a7afc9',
-			'1010754',
+			'fb1c5952e0aaa79fdced',
+			'56f728172350e77d5f7d',
+			'1463863',
 			$options
 		);
 
@@ -37,7 +35,7 @@ class Socket extends CI_Controller {
 
 	public function pesan()
 	{
-		$pusher = innitPusher();
+		$pusher = $this->innitPusher();
 
 		$customerId 	= $this->input->post('user_id');
 		$status 		= $this->input->post('status');
@@ -64,7 +62,7 @@ class Socket extends CI_Controller {
 
 	public function jalan()
 	{
-		$pusher = innitPusher();
+		$pusher = $this->innitPusher();
 		
 		$customerId 	= $this->input->post('user_id');
 		$status 		= $this->input->post('status');
@@ -83,7 +81,7 @@ class Socket extends CI_Controller {
 
 	public function batalPesanan()
 	{
-		$pusher = innitPusher();
+		$pusher = $this->innitPusher();
 
 		$id 			= $this->input->post('user_id');
 		$status 		= $this->input->post('status');
