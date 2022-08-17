@@ -60,6 +60,8 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script>
 	$(() => {
-		$('#table').DataTable()
+		$('#table').DataTable({
+			order: [[0, 'desc']],
+		})
 	})
 </script>
