@@ -16,53 +16,16 @@ class Motor extends CI_Controller {
 	
       	$data['harga']  = $this->hargaModel->getAllData()->row_array()['tari_harga'];
 		$data['title'] 	= 'ORDER BIKE';
+		$data['tran_id'] = $this->input->get('tran_id');
+
+		// Get detail transaction if tran_id != null
+		if($data['tran_id']) {
+			$data['transaction'] = $this->motor->getDetail($data['tran_id'])->result_array();
+		}
 
 		$this->load->view('templates/content/motor', $data);
 
 	}
-
-
-
-
-	
-	
-
-
-	// Order bike
-	public function order()
-	{
-
-		$customerId 	= $this->input->post('user_id');
-		$driverId 		= $this->input->post('driv_id');
-		$from 			= $this->input->post('from');
-        $to 			= $this->input->post('to');
-        $price 			= $this->input->post('price');
-        $jarak 			= $this->input->post('jarak');
-        $lama 			= $this->input->post('lama');
-
-        $exe 			= $this->motor->order($customerId, $driverId, $from, $to, $price, $jarak, $lama);
-
-        echo json_encode($exe);
-	}
-
-
-
-	// Order Batal
-	public function orderBatal()
-	{
-		$customerId 	= $this->input->post('user_id');
-		$driverId 		= $this->input->post('driv_id');
-		$from 			= $this->input->post('from');
-        $to 			= $this->input->post('to');
-        $price 			= $this->input->post('price');
-        $jarak 			= $this->input->post('jarak');
-        $lama 			= $this->input->post('lama');
-
-        $exe 			= $this->motor->orderBatal($customerId, $driverId, $from, $to, $price, $jarak, $lama);
-
-        echo json_encode($exe);	
-	}
-
 
 
 	// Get Detail Customer

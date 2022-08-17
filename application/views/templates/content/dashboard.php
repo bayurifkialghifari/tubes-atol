@@ -112,7 +112,8 @@
 <div class="modal fade" id="myModal5" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
       <div class="modal-content">
-      	  <input type="hidden" id="customerId" value="">
+		  <input type="hidden" id="customerId" value="">
+		  <input type="hidden" id="trans_id">
           <div class="modal-header">
               <h3 class="modal-title custom-font" id="labelPesanan"></h3>
           </div>
@@ -122,7 +123,7 @@
           	<p>Phone : <b id="nomerCustomer"></b></p>
           </div>
           <div class="modal-footer">
-              <button id="clickPesanan" class="btn btn-success btn-ef btn-ef-3 btn-ef-3c"><i class="fa fa-arrow-right"></i> Yes</button>
+              <button id="clickPesanan" class="btn btn-success btn-ef btn-ef-3 btn-ef-3c" data-dismiss="modal"><i class="fa fa-arrow-right"></i> Yes</button>
 
               <button id="batalPesanan" class="btn btn-danger btn-ef btn-ef-4 btn-ef-4c" data-dismiss="modal"><i class="fa fa-arrow-left"></i> No</button>
           </div>
@@ -189,6 +190,9 @@
     {
     	$('#labelPesanan').html('Your customer !!')
 	  		
+		// Set transaction id
+		$('#trans_id').val(data.trans_id)
+
   		// Get data detail customer
   		$.ajax({
   			method: 'post',
@@ -248,7 +252,9 @@
           	data:
           	{
             	status: 'Cancel',
-            	user_id: <?php echo $this->session->userdata('data')['id'] ?> 
+            	user_id: <?php echo $this->session->userdata('data')['id'] ?>,
+				driv_id: <?php echo $this->session->userdata('data')['id'] ?>,
+				trans_id: $('#trans_id').val(),
           	},
           	success(data)
           	{
@@ -272,6 +278,7 @@
             data: {
               	status: 'Jalan',
               	driv_id: '<?php echo $this->session->userdata('data')['id'] ?>',
+				trans_id: $('#trans_id').val(),
               	user_id: customerId 
             },
             success(data)

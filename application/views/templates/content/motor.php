@@ -1,6 +1,23 @@
 <?php $this->load->view('templates/header') ?>
 <?php
 $key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
+
+$tran_id = 0;
+$driver = 0;
+$from = null;
+$to = null;
+$distance = null;
+$price = null;
+
+if(isset($transaction)) {
+	$transaction = $transaction[0];
+	$tran_id = $transaction['tran_id'];
+	$driver = $transaction['tran_driv_id'];
+	$from = $transaction['tran_asal'];
+	$to = $transaction['tran_tujuan'];
+	$distance = $transaction['tran_jarak'];
+	$price = $transaction['tran_harga'];
+}
 ?>
 <div class="content clearfix pt-5 mt-5">
 		
@@ -32,7 +49,7 @@ $key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
 	    		<div class="col-lg-6 col-md-6 col-sm-6">
 	    			<label for="txtTo">
 			        	Destination :</label>
-			    	<input type="text" id="txtTo" name="txtTo" class="form-control" required="required" placeholder="Location To"
+			    	<input type="text" id="txtTo" name="txtTo" class="form-control" required="required" placeholder="Location To" value="<?= $to ? $to : '' ?>"
 			        	size="40" />
 	    		</div>
 	    		<div class="col-lg-12 col-md-12 col-sm-12 text-center pt-3 pb-3">
@@ -65,7 +82,11 @@ $key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
           <p>DURATION <input type="text" id="lama" readonly="" class="form-control form-md"></p>
           <p style="display: none">DRIVER <input type="text" id="driver" readonly="" class="form-control form-md"></p>
           <div class="text-center">
-            <button type="submit" id="pesan" disabled="disabled" class="btn btn-success ">Order</button>
+						<?php if($tran_id > 0) : ?>
+							<button type="button" onclick="cekBatalPesan()" class="btn btn-danger ">Cancel</button>
+						<?php else : ?>
+							<button type="submit" id="pesan" disabled="disabled" class="btn btn-success ">Order</button>
+						<?php endif; ?>
           </div>
           <br>
         </div>
@@ -102,7 +123,8 @@ $key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
 <div class="modal fade" id="myModal5" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
       <div class="modal-content">
-          <input type="hidden" id="driver">
+          <input type="hidden" id="driver" value="<?= $driver ?>">
+          <input type="hidden" id="trans_id" value="<?= $tran_id ?>">
           <div class="modal-header">
               <h3 class="modal-title custom-font" id="labelPesanan"></h3>
           </div>
@@ -112,6 +134,7 @@ $key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
             <p>Phone : <b id="nomerDriver"></b></p>
           </div>
           <div class="modal-footer">
+              <button class="btn btn-success btn-ef btn-ef-4 btn-ef-4c" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Ok</button>
               <button id="batalPesanan" class="btn btn-danger btn-ef btn-ef-4 btn-ef-4c" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Cancel</button>
           </div>
           <input type="hidden" id="idPesanan" >
@@ -202,6 +225,40 @@ $key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
         )
     }
 
+		// Cek batal pesan
+		function cekBatalPesan() {
+			let cek = confirm('Are you sure to cancel this order ?')
+
+			if(cek) {
+				batalPesan()
+			}
+		}
+
+		// Batal pesan function
+		function batalPesan() {
+			let driver = $('#driver').val()
+
+			$.ajax({
+				method: 'post',
+				url: '<?= base_url() ?>socket/batalPesanan',
+				data:
+				{
+					status: 'Cancel',
+					user_id: <?php echo $this->session->userdata('data')['id'] ?>,
+					driv_id: driver,
+					trans_id: $('#trans_id').val(),
+				},
+				success(data)
+				{
+					$('#pesan').prop('disabled', false)
+				},
+				error($xhr)
+				{
+					console.log($xhr)
+				}
+			})
+		}
+
  
     $(document).ready(() => 
     {    
@@ -236,9 +293,15 @@ $key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
             async: true,
             success(data)
             {
-              $('#txtFrom').val(data.results[1].formatted_address)
+							<?php if($from) : ?>
+								$('#txtFrom').val('<?= $from ?>')
 
-              calculateRoute(null, null, latitude, longitude)
+								$('#calculate-route').submit()
+							<?php else : ?>
+								$('#txtFrom').val(data.results[1].formatted_address)
+
+								calculateRoute(null, null, latitude, longitude)
+							<?php endif; ?>
             }
           })
         }
@@ -315,6 +378,7 @@ $key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
             $('#detail').css('display', 'block')
     			}
         })
+				
 
         let pusher  = new Pusher('fb1c5952e0aaa79fdced', 
         {
@@ -338,10 +402,12 @@ $key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
 
           ev.preventDefault()
 
-
-
-
-
+					let from  = $("#txtFrom").val()
+					let to    = $("#txtTo").val()
+					let jarak = $('#jarak').val()
+					let lama  = $('#lama').val()
+					let price = $('#price').val()
+					price     = splitString(price, '.')
 
           // Web socket
           $.ajax({
@@ -358,7 +424,9 @@ $key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
             },
             success(data)
             {
-              console.log(data)
+							$('#trans_id').val(data)
+
+							location.href = '<?= base_url() ?>pesan/motor?tran_id='+data
             },
             error($xhr)
             {
@@ -376,58 +444,10 @@ $key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
               $.message('Driver cancels your order !!', 'ORDER', 'error')
               $.message('Find your drivers again !!', 'ORDER', 'warning')
 
-              $.ajax({
-                method: 'post',
-                url: '<?= base_url() ?>pesan/motor/orderBatal',
-                data: {
-                  user_id: <?php echo $this->session->userdata('data')['id'] ?>,
-                  driv_id: data.id,
-                  from: from,
-                  to: to,
-                  price: price,
-                  jarak: jarak,
-                  lama: lama
-                },
-                success(data)
-                {
-                  console.log(data)
-                },
-                error($xhr)
-                {
-                  console.log($xhr)
-                }
-              })
-
               $('#pesan').prop('disabled', false)
               $('#myModal5').modal('toggle')
             }
           })
-
-
-          $('#batalPesanan').on('click', (ev) =>
-          {
-            ev.preventDefault()
-
-            $.ajax({
-              method: 'post',
-              url: '<?= base_url() ?>socket/batalPesanan',
-              data:
-              {
-                status: 'Cancel',
-                user_id: <?php echo $this->session->userdata('data')['id'] ?> 
-              },
-              success(data)
-              {
-                $('#pesan').prop('disabled', false)
-              },
-              error($xhr)
-              {
-                console.log($xhr)
-              }
-            })
-
-          })
-
         })
 
         socket.bind('jalan', function(data)
@@ -456,32 +476,18 @@ $key = 'AIzaSyCAkHocM29jkneqd5rY54DFdoDDv4r7EIM';
               }
             })
 
-            $.ajax({
-              method: 'post',
-              url: '<?= base_url() ?>pesan/motor/order',
-              data: {
-                user_id: <?php echo $this->session->userdata('data')['id'] ?>,
-                driv_id: data.driver,
-                from: from,
-                to: to,
-                price: price,
-                jarak: jarak,
-                lama: lama
-              },
-              success(data)
-              {
-                console.log(data)
-              },
-              error($xhr)
-              {
-                console.log($xhr)
-              }
-            })
-
             // Toggle Modal
             $('#myModal5').modal('toggle')
           }
         })
+
+				// Batal Pesan
+				$('#batalPesanan').on('click', (ev) =>
+          {
+            ev.preventDefault()
+
+						batalPesan()
+          })
 
         function splitString(stringToSplit, separator) 
         {

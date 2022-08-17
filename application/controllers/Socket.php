@@ -53,11 +53,17 @@ class Socket extends CI_Controller {
 		$data['to'] 					= $to;
 		$data['price'] 					= $price;
 		$data['jarak'] 					= $jarak;
+		$data['lama'] 					= $lama;
 		$data['customerId'] 			= $customerId;
+		
+		$exe 			= $this->motor->order($customerId, 0, $from, $to, $price, $jarak, $lama);
 
+		// Get transaction id
+		$data['trans_id'] 				= $exe;
+		
 		$pusher->trigger('motor', 'pesanan-datang', $data);
 
-		echo json_encode(1);
+		echo json_encode($exe);
 	}
 
 	public function jalan()
@@ -67,12 +73,16 @@ class Socket extends CI_Controller {
 		$customerId 	= $this->input->post('user_id');
 		$status 		= $this->input->post('status');
 		$driver 		= $this->input->post('driv_id');
+		$trans_id 		= $this->input->post('trans_id');
 
 		// Triger websocket
 		$data['message'] 				= 'success';
 		$data['status'] 				= $status;
 		$data['customerId'] 			= $customerId;
 		$data['driver'] 				= $driver;
+		$data['trans_id'] 				= $trans_id;
+
+		$exe 			= $this->motor->setStatus($trans_id, $driver, 'Dijalan');
 
 		$pusher->trigger('motor', 'jalan', $data);
 
@@ -85,14 +95,27 @@ class Socket extends CI_Controller {
 
 		$id 			= $this->input->post('user_id');
 		$status 		= $this->input->post('status');
+		$driver 		= $this->input->post('driv_id');
+		$trans_id 		= $this->input->post('trans_id');
 		// Triger websocket
 		$data['message'] 				= 'success';
 		$data['status'] 				= $status;
 		$data['id'] 					= $id;
+		$data['trans_id'] 				= $trans_id;
+
+		$exe 			= $this->motor->setStatus($trans_id, $driver, 'Dicancel');
 
 		$pusher->trigger('motor', 'batal', $data);
 
 		echo json_encode(1);
+	}
+
+	// Load model
+	function __construct()
+	{
+		parent::__construct();
+
+		$this->load->model('pesan/motorModel', 'motor');
 	}
 
 
