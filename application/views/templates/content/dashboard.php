@@ -144,7 +144,7 @@
 	{
 		$('#btn-order').on('click', () =>
 		{
-			$.message("Complete your data on your profile !!", 'DRIVER', 'warning')
+			// $.message("Complete your data on your profile !!", 'DRIVER', 'warning')
 		})
 	})
 

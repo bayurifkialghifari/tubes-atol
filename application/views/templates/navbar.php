@@ -19,7 +19,7 @@
           <a class="nav-link" href="<?= base_url() ?>pesan/motor">GO-BIKE</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">MY ORDER</a>
+          <a class="nav-link" href="<?= base_url() ?>myorder">MY ORDER</a>
         </li>
       <!-- USERS MENU -->
 
@@ -31,7 +31,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">MY ORDER</a>
+          <a class="nav-link" href="<?= base_url() ?>myorder">MY ORDER</a>
         </li>
       <!-- DRIVER MENU -->
       
@@ -87,8 +87,7 @@
           <i class="fa fa-user"></i> &nbsp; <?= $this->session->userdata('data')['nama'] ?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-6">
-          <a class="dropdown-item" href="<?= base_url() ?>profile">Profile</a>
-          <a class="dropdown-item" href="#">History</a>
+          <!-- <a class="dropdown-item" href="#">History</a> -->
           <a class="dropdown-item" href="#" onclick="out()">Logout</a>
         </div>
       </li>

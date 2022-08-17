@@ -10,6 +10,20 @@ class MotorModel extends CI_Model {
 		return $exe;
 	}
 
+	public function getAll() {
+		$exe = $this->db->select('t.*, u.user_name as user, d.user_name as driver');
+		$exe = $exe->join('users u', 't.tran_user_id = u.user_id', 'left');
+		$exe = $exe->join('users d', 't.tran_driv_id = d.user_id', 'left');
+
+		if($this->session->userdata('data')['level'] == 'User') {
+			$exe = $exe->where('t.tran_user_id', $this->session->userdata('data')['id']);
+		} else {
+			$exe = $exe->where('t.tran_driv_id', $this->session->userdata('data')['id']);
+		}
+		
+		return $exe->get('transaksi t')->result_array();
+	}
+
 	public function getDetail($id) {
 		$exe = $this->db->get_where('transaksi', ['tran_id' => $id]);
 
