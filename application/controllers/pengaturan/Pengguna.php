@@ -75,6 +75,8 @@ class Pengguna extends CI_Controller {
 
 		$this->load->model('pengaturan/penggunaModel', 'pengguna');
 		$this->load->library('b_password');
+		$this->load->library('sesion');
+		$this->sesion->cek_session();
 
 	}
 

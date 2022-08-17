@@ -63,6 +63,8 @@ class Harga extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('pengaturan/hargaModel', 'harga');
+		$this->load->library('sesion');
+		$this->sesion->cek_session();
 
 	}
 

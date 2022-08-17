@@ -107,6 +107,9 @@ class Register extends CI_Controller {
 
 		$this->load->model('registerModel', 'register');
 		$this->load->library('b_password');
+		$this->load->library('sesion');
+
+		$this->sesion->cek_login();
 
 	}
 

@@ -21,6 +21,15 @@ class Home extends CI_Controller {
 	
 	}
 
+	// Load model
+	function __construct()
+	{
+		parent::__construct();
+
+		$this->load->library('sesion');
+		$this->sesion->cek_session();
+	}
+
 
 }
 

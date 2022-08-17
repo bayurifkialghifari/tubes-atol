@@ -61,6 +61,8 @@ class Motor extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('pesan/motorModel', 'motor');
+		$this->load->library('sesion');
+		$this->sesion->cek_session();
 
 	}
 

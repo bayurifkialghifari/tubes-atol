@@ -73,6 +73,8 @@ class Level extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('pengaturan/levelModel', 'level');
+		$this->load->library('sesion');
+		$this->sesion->cek_session();
 
 	}
 

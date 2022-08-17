@@ -7,7 +7,7 @@ class Login extends CI_Controller {
 	// Main function
 	public function index()
 	{
-
+		
 		if($this->session->userdata('status') == true)
 		{
 			redirect('users/home','refresh');
@@ -105,6 +105,9 @@ class Login extends CI_Controller {
 
 		$this->load->model('loginModel', 'login');
 		$this->load->library('b_password');
+		$this->load->library('sesion');
+
+		$this->sesion->cek_login();
 
 	}
 

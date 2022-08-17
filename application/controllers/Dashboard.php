@@ -21,6 +21,14 @@ class Dashboard extends CI_Controller {
 	
 	}
 
+	// Load Model and Library
+	function __construct()
+	{
+		parent::__construct();
+
+		$this->load->library('sesion');
+		$this->sesion->cek_session();
+	}
 
 }
 
