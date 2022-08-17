@@ -16,10 +16,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?= base_url() ?>pesan/motor">GROB-BIKE</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?= base_url() ?>pesan/mobil">GROB-CAR</a>
+          <a class="nav-link" href="<?= base_url() ?>pesan/motor">GO-BIKE</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">MY ORDER</a>

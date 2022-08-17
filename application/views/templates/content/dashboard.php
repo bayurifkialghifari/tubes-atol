@@ -66,22 +66,13 @@
 			<?php else : ?>
 				<div class="example col-md-10 ml-auto mr-auto">
 				  <div class="row">
-				    <div class="color-wrapper col-lg-6 col-md-6 col-sm-6">
+				    <div class="color-wrapper col-lg-12 col-md-12 col-sm-12">
 				      <a class="gg" href="<?= base_url() ?>pesan/motor">
 					      <div class="color">
 					        <h1><i class="fa fa-motorcycle"></i></h1>
 					        <span class="hex-value">GO-BIKE</span>
 					      </div>
 					     </a>
-				    </div>
-
-				    <div class="color-wrapper col-lg-6 col-md-6 col-sm-6">
-				      <a class="gg" href="<?= base_url() ?>pesan/mobil">
-					      <div class="color">
-					        <h1><i class="fa fa-car"></i></h1>
-					        <span class="hex-value">GO-CAR</span>
-					      </div>
-				      </a>
 				    </div>
 				  </div>
 				</div>
