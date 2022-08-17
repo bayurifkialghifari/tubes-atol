@@ -53,8 +53,11 @@ if(isset($transaction)) {
 			        	size="40" />
 	    		</div>
 	    		<div class="col-lg-12 col-md-12 col-sm-12 text-center pt-3 pb-3">
-			    	<input type="submit" value="Search" class="btn btn-primary	" />
+			    	<input type="submit" value="Search" class="btn btn-primary" <?php if(isset($transaction)) : ?>
+							disabled="disabled"
+						<?php endif ?> />
 	    		</div>
+					
 	    	</div>
 
 	  	</form>  
@@ -107,8 +110,8 @@ if(isset($transaction)) {
   }
 </style>
 
-<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=<?= $key ?>"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=<?= $key ?>"></script>
 <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
 
 
@@ -310,8 +313,8 @@ if(isset($transaction)) {
         if (typeof navigator.geolocation == "undefined") 
         {
           $("#lblError").text("Your browser doesn't support the Geolocation API")
-          
-          return
+
+					return
         }
 
 
@@ -480,6 +483,16 @@ if(isset($transaction)) {
             $('#myModal5').modal('toggle')
           }
         })
+
+				socket.bind('sampai', function(data) {
+					if(<?= $tran_id ?> == data.trans_id) {
+						$.message('ARRIVE AT DESTINATION !!', 'ORDER', 'success')
+
+						setTimeout(() => {
+							location.href = '<?= base_url() ?>myorder'	
+						}, 1000)
+					}
+				})
 
 				// Batal Pesan
 				$('#batalPesanan').on('click', (ev) =>

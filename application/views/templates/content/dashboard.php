@@ -27,54 +27,35 @@
 			  <p>Waiting for your order.</p>
 			</div>
 			<?php if($this->session->userdata('data')['level'] == 'Driver') : ?>
+				<div class="example col-md-10 ml-auto mr-auto">
+					<div class="row">
+						<div class="color-wrapper col-lg-12 col-md-12 col-sm-12">
+							<a class="gg" href="#">
+								<div class="color">
+								<h1><i class="fa fa-motorcycle"></i></h1>
+								<span class="hex-value">MY ORDER</span>
+								</div>
+								</a>
+						</div>
+					</div>
+				</div>
 				<?php 
-				
-					$id 	= $this->session->userdata('data')['id'];
-					$exe 	= $this->db->get_where('driver', ['driv_user_id' => $id])->row_array();
-
-					$status = $exe['driv_status'];
-
-					if($status == 0)
-					{
+					if(isset($transaction)) {
+						$this->load->view('templates/content/dashboard-maps');
+					}
 				?>
-					<div class="example col-md-10 ml-auto mr-auto">
-					  <div class="row">
-					    <div class="color-wrapper col-lg-12 col-md-12 col-sm-12">
-					      <a class="gg" href="#" id="btn-order">
-						      <div class="color">
-						        <h1><i class="fa fa-motorcycle"></i></h1>
-						        <span class="hex-value">MY ORDER</span>
-						      </div>
-						     </a>
-					    </div>
-					  </div>
-					</div>
-				<?php }else { ?>
-					<div class="example col-md-10 ml-auto mr-auto">
-					  <div class="row">
-					    <div class="color-wrapper col-lg-12 col-md-12 col-sm-12">
-					      <a class="gg" href="#">
-						      <div class="color">
-						        <h1><i class="fa fa-motorcycle"></i></h1>
-						        <span class="hex-value">MY ORDER</span>
-						      </div>
-						     </a>
-					    </div>
-					  </div>
-					</div>
-				<?php } ?>
 			<?php else : ?>
 				<div class="example col-md-10 ml-auto mr-auto">
-				  <div class="row">
-				    <div class="color-wrapper col-lg-12 col-md-12 col-sm-12">
-				      <a class="gg" href="<?= base_url() ?>pesan/motor">
-					      <div class="color">
+				  	<div class="row">
+				    	<div class="color-wrapper col-lg-12 col-md-12 col-sm-12">
+				      		<a class="gg" href="<?= base_url() ?>pesan/motor">
+					      	<div class="color">
 					        <h1><i class="fa fa-motorcycle"></i></h1>
 					        <span class="hex-value">GO-BIKE</span>
-					      </div>
+					      	</div>
 					     </a>
-				    </div>
-				  </div>
+				    	</div>
+				  	</div>
 				</div>
 			<?php endif; ?>
 
@@ -283,7 +264,11 @@
             },
             success(data)
             {
-              	console.log(data)
+				$.message('NEW ORDER !!', 'ORDER', 'success')
+
+				setTimeout(() => {
+					location.href = '<?= base_url() ?>dashboard?tran_id='+$('#trans_id').val()	
+				}, 1000)
             },
             error($xhr)
             {

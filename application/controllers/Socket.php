@@ -110,6 +110,25 @@ class Socket extends CI_Controller {
 		echo json_encode(1);
 	}
 
+	public function done() {
+		$pusher = $this->innitPusher();
+
+		$status 		= $this->input->post('status');
+		$driver 		= $this->input->post('driv_id');
+		$trans_id 		= $this->input->post('trans_id');
+		// Triger websocket
+		$data['message'] 				= 'success';
+		$data['status'] 				= $status;
+		$data['id'] 					= $driver;
+		$data['trans_id'] 				= $trans_id;
+
+		$exe 			= $this->motor->setStatus($trans_id, $driver, 'Sampai');
+
+		$pusher->trigger('motor', 'sampai', $data);
+
+		echo json_encode(1);
+	}
+
 	// Load model
 	function __construct()
 	{
