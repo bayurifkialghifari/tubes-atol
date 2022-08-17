@@ -174,9 +174,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_phone`, `user_email`, `user_password`, `user_token`, `user_status`, `created_at`) VALUES
-(1, 'Bayu Rifki Alghifari', '08123123', 'bayurifkialgh@gmail.com', 'RAxn7762OZ0d5bQ5BKCqMeWjOnTI/DwpFNhOQze0uE8cNoyeSwr8G', '4sVX7a5jSvDJN1Uk8xNk', 1, '2020-01-08 10:28:27'),
-(2, 'Administrator', '08123123', 'administrator@gmail.com', 'RAxn7762OZ0d5bQ5BKCqMeWjOnTI/DwpFNhOQze0uE8cNoyeSwr8G', '-', 1, '2020-01-14 01:16:08'),
-(3, 'Rifki Bayu Alghifari', '08123123', 'bayurifki916@gmail.com', 'Nl9kLHd3SGTb7M1adhA4JOcHjDO37hef3DBu6Vms6g/p2eUv8aeGi', 'Q5VYP8ssNaeHirZ9s1SV', 1, '2020-01-14 06:18:38');
+(1,	'Pemesan',	'08123123',	'pemesan@test.com',	'RAxn7762OZ0d5bQ5BKCqMeWjOnTI/DwpFNhOQze0uE8cNoyeSwr8G',	'4sVX7a5jSvDJN1Uk8xNk',	1,	'2020-01-08 10:28:27'),
+(2,	'Administrator',	'08123123',	'administrator@gmail.com',	'RAxn7762OZ0d5bQ5BKCqMeWjOnTI/DwpFNhOQze0uE8cNoyeSwr8G',	'-',	1,	'2020-01-14 01:16:08'),
+(3,	'Driver',	'08123123',	'driver@test.com',	'Nl9kLHd3SGTb7M1adhA4JOcHjDO37hef3DBu6Vms6g/p2eUv8aeGi',	'Q5VYP8ssNaeHirZ9s1SV',	1,	'2020-01-14 06:18:38');
+
+-- 2022-08-17 20:26:50
 
 --
 -- Indexes for dumped tables
